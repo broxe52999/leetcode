@@ -38,3 +38,25 @@ func hIndex(citations []int) int {
 	}
 	return ans
 }
+
+// 除自身以外数组的乘积
+func productExceptSelf(nums []int) []int {
+	n := len(nums)
+	if n <= 1 {
+		return []int{0}
+	}
+	answer := make([]int, n)
+	answer[0] = nums[0]
+	for i := 1; i < n; i++ {
+		answer[i] = answer[i-1] * nums[i]
+	}
+	temp := 1
+	for i := n - 1; i >= 1; i-- {
+		if i != n-1 {
+			temp = temp * nums[i+1]
+		}
+		answer[i] = answer[i-1] * temp
+	}
+	answer[0] = temp
+	return answer
+}
